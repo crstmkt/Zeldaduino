@@ -1,6 +1,8 @@
+#include <Adafruit_SleepyDog.h>
 #include "Arduino.h"
 #include "SoftwareSerial.h"
 #include "DFRobotDFPlayerMini.h"
+
 
 SoftwareSerial mySoftwareSerial(10, 11); // RX, TX
 DFRobotDFPlayerMini myDFPlayer;
@@ -13,6 +15,8 @@ void setup() {
   Serial.begin(57600);
   
   pinMode(2, INPUT); //Why D2? Because R2D2
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, LOW); // Show we're awake
 
   Serial.println();
   Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
@@ -31,22 +35,17 @@ void setup() {
 void loop() {
   if(digitalRead(2) == LOW && chestOpen == false)
   {
-    //For some unknown reason, the sounds are not in the order I named them:
-    // 1. BotW Get Item
-    // 2. OoT Get Item
-    // 3. BotW Open Wooden Box
-    // 4. OoT Open Treasure Chest
     if(isBotW){
-      myDFPlayer.play(3);
-      delay(600);
       myDFPlayer.play(1);
+      delay(600);
+      myDFPlayer.play(2);
       isBotW = false;
       delay(2000);
     }else
     {
-      myDFPlayer.play(4);
+      myDFPlayer.play(3);
       delay(7500);
-      myDFPlayer.play(2);
+      myDFPlayer.play(4);
       isBotW = true;
       delay(2000);
    }
