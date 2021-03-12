@@ -37,17 +37,13 @@ void loop() {
   {
     if(isBotW){
       myDFPlayer.play(1);
-      delay(600);
-      myDFPlayer.play(2);
+      delay(6000);
       isBotW = false;
-      delay(2000);
     }else
     {
-      myDFPlayer.play(3);
-      delay(7500);
-      myDFPlayer.play(4);
+      myDFPlayer.play(2);
+      delay(12500);
       isBotW = true;
-      delay(2000);
    }
     chestOpen = true;
     delay(1000);
